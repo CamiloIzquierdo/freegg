@@ -29,7 +29,7 @@ interface Game {
     };
 }
 
-const Game: React.FC<Game> = ({ params }) => {
+const OneGame: React.FC<Game> = ({ params }) => {
     const [data, setData] = useState<Game | null>(null);
     const { id } = params;
 
@@ -101,4 +101,4 @@ const Game: React.FC<Game> = ({ params }) => {
     );
 };
 
-export default Game;
+export default OneGame;
