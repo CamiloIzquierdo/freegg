@@ -10,10 +10,7 @@ export const Footer = () => {
                 >
                     <img src="/linkedin.svg" width={20} alt="" />
                 </a>
-                <a
-                    href="https://www.linkedin.com/in/camilo-izquierdo-99a660229/"
-                    target="_blank"
-                >
+                <a href="https://github.com/CamiloIzquierdo" target="_blank">
                     <img src="/github.svg" width={20} alt="" />
                 </a>
             </div>
