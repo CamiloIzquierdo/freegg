@@ -6,6 +6,7 @@ interface PaginationProps {
     itemsPerPage: number;
     currentPage: number;
     onPageChange: (page: number) => void;
+    disabled?: boolean;
 }
 
 const Pagination: React.FC<PaginationProps> = ({
@@ -13,6 +14,7 @@ const Pagination: React.FC<PaginationProps> = ({
     itemsPerPage,
     currentPage,
     onPageChange,
+    disabled = false,
 }) => {
     const totalPages = Math.ceil(totalItems / itemsPerPage);
 
@@ -28,7 +30,7 @@ const Pagination: React.FC<PaginationProps> = ({
     return (
         <div className="flex gap-5 items-center justify-center">
             <button
-                disabled={currentPage === 1}
+                disabled={currentPage === 1 || disabled}
                 onClick={handlePreviousPage}
                 className="font-bold border py-2 px-2 bg-white text-black"
             >
@@ -38,7 +40,7 @@ const Pagination: React.FC<PaginationProps> = ({
                 {currentPage}
             </span>
             <button
-                disabled={currentPage === totalPages}
+                disabled={currentPage === totalPages || disabled}
                 onClick={handleNextPage}
                 className="font-bold border py-2 px-2 bg-white text-black"
             >

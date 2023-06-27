@@ -6,10 +6,11 @@ import { getGameByAll } from "@/services/calls";
 import Pagination from "@/components/pagination";
 import { useEffect, useState } from "react";
 import { Nodata } from "@/components/nodata";
+import { SkeletonCards } from "@/components/Skeletons/skeletonCards";
 
 interface Props {
     params: {
-        fills: any[]; // Tipo adecuado para la propiedad 'fills'
+        fills: string[];
     };
 }
 
@@ -23,7 +24,7 @@ interface Info {
 }
 
 const Allfilter: React.FC<Props> = ({ params }) => {
-    const paramsData = params.fills;
+    const { fills: paramsData } = params;
     const [category, platform] = paramsData.slice(0, 2);
     const [data, setData] = useState<Info[]>([]);
     const [currentPage, setCurrentPage] = useState(1);
@@ -66,7 +67,16 @@ const Allfilter: React.FC<Props> = ({ params }) => {
     return (
         <div className="w-full flex flex-col h-full min-h-screen justify-center items-center py-3 pb-3 bg-blue-950">
             {isLoading ? (
-                <Loading />
+                <div className="flex flex-wrap gap-5 items-center justify-center">
+                    <SkeletonCards />
+                    <SkeletonCards />
+                    <SkeletonCards />
+                    <SkeletonCards />
+                    <SkeletonCards />
+                    <SkeletonCards />
+                    <SkeletonCards />
+                    <SkeletonCards />
+                </div>
             ) : !hasData ? (
                 <Nodata />
             ) : (

@@ -20,12 +20,12 @@ export default function RootLayout({
 }) {
     return (
         <html lang="en">
-            <body className={inter.className}>
-                <GlobalContextProvider>
-                    <Navbar />
+            <body className="">
+                <Navbar />
+                <div className="min-h-[calc(100vh-72px-28px)] bg-blue-950 flex justify-center items-center">
                     {children}
-                    <Footer />
-                </GlobalContextProvider>
+                </div>
+                <Footer />
             </body>
         </html>
     );

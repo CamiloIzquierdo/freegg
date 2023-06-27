@@ -49,7 +49,7 @@ const OneGame: React.FC<Props> = ({ params }) => {
         fetchData();
     }, []);
     return (
-        <div className="w-full  h-full px-2 bg-blue-950">
+        <div className="w-full h-full px-2 bg-blue-950">
             {data && (
                 <>
                     <div className="w-full h-full flex flex-col py-11 gap-10">

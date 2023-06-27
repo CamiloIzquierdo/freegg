@@ -1,15 +1,15 @@
 "use client";
 
 import Filters from "@/app/games/filters";
+import { SkeletonCards } from "@/components/Skeletons/skeletonCards";
 import { Card } from "@/components/card";
-import { Loading } from "@/components/loading";
-import { getGameByPlatform } from "@/services/calls";
 import Pagination from "@/components/pagination";
+import { getGameByPlatform } from "@/services/calls";
 import { useEffect, useState } from "react";
 import { formatedPlatform } from "./formatedPlatform";
 
 interface Props {
-    params: any;
+    params: { platform: string };
 }
 
 interface Info {
@@ -76,7 +76,16 @@ const Platform: React.FC<Props> = ({ params }) => {
                     />
                 </div>
             ) : (
-                <Loading />
+                <div className="flex flex-wrap gap-5 items-center justify-center">
+                    <SkeletonCards />
+                    <SkeletonCards />
+                    <SkeletonCards />
+                    <SkeletonCards />
+                    <SkeletonCards />
+                    <SkeletonCards />
+                    <SkeletonCards />
+                    <SkeletonCards />
+                </div>
             )}
         </div>
     );
