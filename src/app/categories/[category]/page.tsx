@@ -7,6 +7,7 @@ import Pagination from "@/components/pagination";
 import { getGameByCategory } from "@/services/calls";
 import { useEffect, useState } from "react";
 import { formatCategory } from "./formatedCategory";
+import { ScrollTop } from "@/utils/scrolltop";
 
 interface Props {
     params: { category: string };
@@ -24,6 +25,8 @@ interface Info {
 const Category: React.FC<Props> = ({ params }) => {
     const [data, setData] = useState<Info[]>([]);
     const [currentPage, setCurrentPage] = useState(1);
+    const [loading, setLoading] = useState(true);
+
     const PAGE_SIZE = 8;
     const startIndex = (currentPage - 1) * PAGE_SIZE;
     const endIndex = startIndex + PAGE_SIZE;
@@ -38,19 +41,28 @@ const Category: React.FC<Props> = ({ params }) => {
                 category: formattedCategory,
             });
             setData(result.data);
+            result.data &&
+                setTimeout(() => {
+                    setLoading(false);
+                }, 660);
         };
 
         fetchData();
     }, [formattedCategory]);
 
     const handlePageChange = (page: number) => {
-        setCurrentPage(page);
-    };
+        setLoading(true);
 
+        setCurrentPage(page);
+        setTimeout(() => {
+            setLoading(false);
+            ScrollTop();
+        }, 660);
+    };
     return (
         <div className="w-full flex flex-col h-full min-h-screen justify-center items-center py-1 pb-3 gap-4 bg-blue-950">
             <Filters />
-            {data && data.length > 0 ? (
+            {!loading ? (
                 <ul className="flex flex-wrap gap-5 items-center justify-center">
                     {currentData.map((item) => (
                         <li key={item.id}>
@@ -84,6 +96,7 @@ const Category: React.FC<Props> = ({ params }) => {
                 itemsPerPage={PAGE_SIZE}
                 currentPage={currentPage}
                 onPageChange={handlePageChange}
+                disabled={loading}
             />
         </div>
     );

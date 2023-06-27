@@ -24,7 +24,6 @@ const Pagination: React.FC<PaginationProps> = ({
 
     const handleNextPage = () => {
         onPageChange(currentPage + 1);
-        ScrollTop();
     };
 
     return (

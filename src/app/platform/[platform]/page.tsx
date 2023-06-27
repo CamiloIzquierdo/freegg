@@ -7,6 +7,7 @@ import Pagination from "@/components/pagination";
 import { getGameByPlatform } from "@/services/calls";
 import { useEffect, useState } from "react";
 import { formatedPlatform } from "./formatedPlatform";
+import { ScrollTop } from "@/utils/scrolltop";
 
 interface Props {
     params: { platform: string };
@@ -24,6 +25,7 @@ interface Info {
 const Platform: React.FC<Props> = ({ params }) => {
     const [data, setData] = useState<Info[]>([]);
     const [currentPage, setCurrentPage] = useState(1);
+    const [loading, setLoading] = useState(true);
 
     const { platform } = params;
     const PAGE_SIZE = 8;
@@ -38,19 +40,29 @@ const Platform: React.FC<Props> = ({ params }) => {
                 platform: formatedPlatforms,
             });
             setData(result.data);
+            result.data &&
+                setTimeout(() => {
+                    setLoading(false);
+                }, 660);
         };
 
         fetchData();
     }, [formatedPlatform]);
 
     const handlePageChange = (page: number) => {
+        setLoading(true);
+
         setCurrentPage(page);
+        setTimeout(() => {
+            setLoading(false);
+            ScrollTop();
+        }, 660);
     };
 
     return (
         <div className="w-full flex flex-col h-full justify-center items-center py-1 pb-3 bg-blue-950">
             <Filters />
-            {data && data.length > 0 ? (
+            {!loading ? (
                 <div className="flex flex-col gap-5 ">
                     <ul className="flex flex-wrap gap-5 items-center justify-center">
                         {currentData.map((item) => (
@@ -73,6 +85,7 @@ const Platform: React.FC<Props> = ({ params }) => {
                         itemsPerPage={PAGE_SIZE}
                         currentPage={currentPage}
                         onPageChange={handlePageChange}
+                        disabled={loading}
                     />
                 </div>
             ) : (

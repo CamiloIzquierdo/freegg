@@ -48,6 +48,7 @@ const OneGame: React.FC<Props> = ({ params }) => {
 
         fetchData();
     }, []);
+    console.log(data?.screenshots);
     return (
         <div className="w-full h-full px-2 bg-blue-950">
             {data && (

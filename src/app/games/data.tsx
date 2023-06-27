@@ -4,6 +4,7 @@ import { SkeletonCards } from "@/components/Skeletons/skeletonCards";
 import { Card } from "@/components/card";
 import Pagination from "@/components/pagination";
 import { GetAllGames } from "@/services/calls";
+import { ScrollTop } from "@/utils/scrolltop";
 import React, { useEffect, useState } from "react";
 
 interface Game {
@@ -36,9 +37,11 @@ const DataAllGames: React.FC = () => {
 
     const handlePageChange = (page: number) => {
         setLoading(true);
+
         setCurrentPage(page);
         setTimeout(() => {
             setLoading(false);
+            ScrollTop();
         }, 660);
     };
 

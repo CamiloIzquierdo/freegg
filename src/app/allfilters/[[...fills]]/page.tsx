@@ -1,12 +1,11 @@
 "use client";
-import Filters from "@/app/games/filters";
-import { Card } from "@/components/card";
-import { Loading } from "@/components/loading";
-import { getGameByAll } from "@/services/calls";
-import Pagination from "@/components/pagination";
-import { useEffect, useState } from "react";
-import { Nodata } from "@/components/nodata";
 import { SkeletonCards } from "@/components/Skeletons/skeletonCards";
+import { Card } from "@/components/card";
+import { Nodata } from "@/components/nodata";
+import Pagination from "@/components/pagination";
+import { getGameByAll } from "@/services/calls";
+import { ScrollTop } from "@/utils/scrolltop";
+import { useEffect, useState } from "react";
 
 interface Props {
     params: {
@@ -46,6 +45,10 @@ const Allfilter: React.FC<Props> = ({ params }) => {
 
                 if (result.data.length > 0) {
                     setData(result.data);
+                    result.data &&
+                        setTimeout(() => {
+                            setIsLoading(false);
+                        }, 660);
                     setHasData(true);
                 } else {
                     setHasData(false);
@@ -61,7 +64,13 @@ const Allfilter: React.FC<Props> = ({ params }) => {
     }, []);
 
     const handlePageChange = (page: number) => {
+        setIsLoading(true);
+
         setCurrentPage(page);
+        setTimeout(() => {
+            setIsLoading(false);
+            ScrollTop();
+        }, 660);
     };
 
     return (
