@@ -31,7 +31,6 @@ const Category: React.FC<Props> = ({ params }) => {
     const currentData = data.slice(startIndex, endIndex);
 
     const { category } = params;
-    console.log(category);
     const formattedCategory = formatCategory(category);
 
     useEffect(() => {

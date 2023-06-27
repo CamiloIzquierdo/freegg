@@ -1,38 +1,45 @@
 "use client";
 import { getOneGame } from "@/services/calls";
 import { useEffect, useState } from "react";
-import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import { Additional } from "./additional";
 import { Specs } from "./specs";
 import { GameImages } from "./gameImages";
 
-interface Game {
+interface Screenshots {
+    id: number;
+    image: string;
+}
+
+interface MinimunSystem {
+    graphics: string;
+    memory: string;
+    os: string;
+    processor: string;
+    storage: string;
+}
+interface GameData {
     id: number;
     title: string;
     thumbnail: string;
-    params: any;
     description: string;
-    screenshots: Array<{ id: number; image: string }>;
+    screenshots: Screenshots[];
     genre: string;
     platform: string;
     publisher: string;
     developer: string;
     release_date: string;
-    minimum_system_requirements: {
-        graphics: string;
-        memory: string;
-        os: string;
-        processor: string;
-        storage: string;
-    };
+    minimum_system_requirements: MinimunSystem;
 }
 
-const OneGame: React.FC<Game> = ({ params }) => {
-    const [data, setData] = useState<Game | null>(null);
-    const { id } = params;
+interface Props {
+    params: { id: string };
+}
 
+const OneGame: React.FC<Props> = ({ params }) => {
+    const [data, setData] = useState<GameData | undefined>(undefined);
+    const { id } = params;
     useEffect(() => {
         const fetchData = async () => {
             const result = await getOneGame({ id });
@@ -41,7 +48,6 @@ const OneGame: React.FC<Game> = ({ params }) => {
 
         fetchData();
     }, []);
-
     return (
         <div className="w-full  h-full px-2 bg-blue-950">
             {data && (

@@ -1,6 +1,5 @@
 export const formatedPlatform = (platform: string): string => {
     let formattedCategory = platform;
-    console.log(platform);
     if (formattedCategory === "PC%20(Windows)") {
         formattedCategory = "pc";
     }
